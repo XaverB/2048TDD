@@ -3,16 +3,24 @@ package spw4.game2048;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
 class BoardUtilTest {
 
+  GameImpl game;
+
+  @BeforeEach
+  void setup() {
+    game = new GameImpl();
+  }
+
   @Test
   void isFullWhenIsFullReturnsTrue() {
-    int[][] board = new int[4][4];
-    Arrays.stream(board).forEach(x -> Arrays.fill(x, 1));
+    GameImpl.Tile[][] board = new GameImpl.Tile[4][4];
+    Arrays.stream(board).forEach(x -> Arrays.fill(x, game.new Tile(1, 0, 0)));
     BoardUtil sut = new BoardUtilImpl(board);
 
     assertTrue(sut.isFull());
@@ -20,16 +28,16 @@ class BoardUtilTest {
 
   @Test
   void isFullWhenIsEmptyReturnsFalse() {
-    int[][] board = new int[4][4];
+    GameImpl.Tile[][] board = new GameImpl.Tile[4][4];
     BoardUtil sut = new BoardUtilImpl(board);
     assertFalse(sut.isFull());
   }
 
   @Test
   void isFullWhenIsNotFullReturnsFalse() {
-    int[][] board = new int[4][4];
-    Arrays.stream(board).forEach(x -> Arrays.fill(x, 1));
-    board[0][0] = 0;
+    GameImpl.Tile[][] board = new GameImpl.Tile[4][4];
+    Arrays.stream(board).forEach(x -> Arrays.fill(x,game.new Tile(1, 0, 0)));
+    board[0][0] = null;
     BoardUtil sut = new BoardUtilImpl(board);
 
     assertFalse(sut.isFull());
@@ -37,9 +45,9 @@ class BoardUtilTest {
 
   @Test
   void cleanWhenIsNotEmpty() {
-    int[][] board = new int[4][4];
-    int[][] expectedBoard = new int[4][4];
-    Arrays.stream(board).forEach(x -> Arrays.fill(x, 1));
+    GameImpl.Tile[][] board = new GameImpl.Tile[4][4];
+    GameImpl.Tile[][] expectedBoard = new GameImpl.Tile[4][4];
+    Arrays.stream(board).forEach(x -> Arrays.fill(x,  game.new Tile(1, 0, 0)));
     BoardUtil sut = new BoardUtilImpl(board);
     sut.clear();
 
@@ -48,9 +56,9 @@ class BoardUtilTest {
 
   @Test
   void isWonContainsWinValueReturnsTrue() {
-    int[][] board = new int[4][4];
-    Arrays.stream(board).forEach(x -> Arrays.fill(x, 1));
-    board[0][0] = GameImpl.WIN_VALUE;
+    GameImpl.Tile[][] board = new GameImpl.Tile[4][4];
+    Arrays.stream(board).forEach(x -> Arrays.fill(x, game.new Tile(1, 0, 0)));
+    board[0][0] = game.new Tile(2048, 0, 3);
     BoardUtil sut = new BoardUtilImpl(board);
 
     assertTrue(sut.isWon());
@@ -58,8 +66,8 @@ class BoardUtilTest {
 
   @Test
   void isWonContainsNoWinValueReturnsFalse() {
-    int[][] board = new int[4][4];
-    Arrays.stream(board).forEach(x -> Arrays.fill(x, 1));
+    GameImpl.Tile[][] board = new GameImpl.Tile[4][4];
+    Arrays.stream(board).forEach(x -> Arrays.fill(x, game.new Tile(1,0 ,0)));
     BoardUtil sut = new BoardUtilImpl(board);
 
     assertFalse(sut.isWon());

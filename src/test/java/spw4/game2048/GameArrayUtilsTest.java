@@ -4,12 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 class GameArrayUtilsTest {
 
@@ -74,6 +68,7 @@ class GameArrayUtilsTest {
     int[] array = new int[]{0,0,2,2};
     int[] expected = new int[]{0,0,0,4};
     GameArrayUtils.mergeValuesRight(array, array.length);
+    GameArrayUtils.moveZerosToLeft(array, array.length);
     assertArrayEquals(expected, array);
   }
 

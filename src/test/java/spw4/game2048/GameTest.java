@@ -9,13 +9,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.lang.reflect.Field;
 import java.util.List;
 
 
-@ExtendWith(MockitoExtension.class)
-class GameTest {
+@ExtendWith(MockitoExtension.class) class GameTest {
   // we do not want to use the constants from GameImpl,
   // because we are testing against an interface, which does not
   // have those values
@@ -114,121 +111,5 @@ class GameTest {
 
     assertEquals(expected, result);
   }
-
-
-  @Test
-  void moveLeftDev1() {
-
-    int[][] board = new int[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
-    // [0, 2, 0, 2]
-    board[0][1] = 2;
-    board[0][3] = 2;
-
-    ((GameImpl)sut).board = board;
-    sut.move(Direction.left);
-    assertEquals(4, ((GameImpl)sut).board[0][0]);
-    assertEquals(0, ((GameImpl)sut).board[0][1]);
-    assertEquals(0, ((GameImpl)sut).board[0][2]);
-    assertEquals(0, ((GameImpl)sut).board[0][3]);
-  }
-
-  @Test
-  void moveLeftDev2() {
-
-    int[][] board = new int[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
-    // [0, 2, 0, 0]
-    board[0][1] = 2;
-    board[0][3] = 0;
-
-    ((GameImpl)sut).board = board;
-    sut.move(Direction.left);
-    assertEquals(2, ((GameImpl)sut).board[0][0]);
-    assertEquals(0, ((GameImpl)sut).board[0][1]);
-    assertEquals(0, ((GameImpl)sut).board[0][2]);
-    assertEquals(0, ((GameImpl)sut).board[0][3]);
-  }
-
-  @Test
-  void moveLeftDev3() {
-
-    int[][] board = new int[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
-    // [0, 2, 0, 2]
-    board[0][2] = 2;
-
-    ((GameImpl)sut).board = board;
-    sut.move(Direction.left);
-    assertEquals(2, ((GameImpl)sut).board[0][0]);
-    assertEquals(0, ((GameImpl)sut).board[0][1]);
-    assertEquals(0, ((GameImpl)sut).board[0][2]);
-    assertEquals(0, ((GameImpl)sut).board[0][3]);
-  }
-
-  @Test
-  void moveLeftDev4() {
-
-    int[][] board = new int[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
-    // [0, 2, 0, 2]
-    board[0][0] = 2;
-    board[1][2] = 2;
-
-    ((GameImpl)sut).board = board;
-    sut.move(Direction.left);
-    System.out.println(sut.toString());
-    assertEquals(2, ((GameImpl)sut).board[0][0]);
-    assertEquals(0, ((GameImpl)sut).board[0][1]);
-    assertEquals(0, ((GameImpl)sut).board[0][2]);
-    assertEquals(0, ((GameImpl)sut).board[0][3]);
-  }
-
-  @Test
-  void moveRightDev1() {
-
-    int[][] board = new int[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
-    // [0, 2, 0, 2]
-    board[0][0] = 2;
-
-    ((GameImpl)sut).board = board;
-    sut.move(Direction.right);
-    System.out.println(sut.toString());
-    assertEquals(0, ((GameImpl)sut).board[0][0]);
-    assertEquals(0, ((GameImpl)sut).board[0][1]);
-    assertEquals(0, ((GameImpl)sut).board[0][2]);
-    assertEquals(2, ((GameImpl)sut).board[0][3]);
-  }
-
-  @Test
-  void moveRightDev2() {
-
-    int[][] board = new int[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
-    // [0, 2, 0, 2]
-    board[0][0] = 2;
-    board[0][2] = 4;
-
-    ((GameImpl)sut).board = board;
-    sut.move(Direction.right);
-    System.out.println(sut.toString());
-    assertEquals(0, ((GameImpl)sut).board[0][0]);
-    assertEquals(0, ((GameImpl)sut).board[0][1]);
-    assertEquals(2, ((GameImpl)sut).board[0][2]);
-    assertEquals(4, ((GameImpl)sut).board[0][3]);
-  }
-
-  @Test
-  void moveRightDev4() {
-
-    int[][] board = new int[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
-    // [0, 2, 0, 2]
-    board[0][0] = 2;
-    board[0][2] = 2;
-
-    ((GameImpl)sut).board = board;
-    sut.move(Direction.right);
-    System.out.println(sut.toString());
-    assertEquals(0, ((GameImpl)sut).board[0][0]);
-    assertEquals(0, ((GameImpl)sut).board[0][1]);
-    assertEquals(0, ((GameImpl)sut).board[0][2]);
-    assertEquals(4, ((GameImpl)sut).board[0][3]);
-  }
-
 
 }

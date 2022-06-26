@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class BoardUtilImpl implements BoardUtil {
-  int[][] board;
+  GameImpl.Tile[][] board;
 
-  public BoardUtilImpl(int[][] board) {
+  public BoardUtilImpl(GameImpl.Tile[][] board) {
     this.board = board;
   }
 
@@ -14,7 +14,7 @@ public class BoardUtilImpl implements BoardUtil {
   public boolean isWon() {
     for (int row = 0; row < GameImpl.TILE_COUNT; row++) {
       for (int col = 0; col < GameImpl.TILE_COUNT; col++) {
-        if (board[row][col] == 2048)
+        if (board[row][col] != null && board[row][col].getValue() == 2048)
           return true;
       }
     }
@@ -25,7 +25,7 @@ public class BoardUtilImpl implements BoardUtil {
   public boolean isFull() {
     for (int row = 0; row < GameImpl.TILE_COUNT; row++) {
       for (int col = 0; col < GameImpl.TILE_COUNT; col++) {
-        if (board[row][col] == 0)
+        if (board[row][col] == null)
           return false;
       }
     }
@@ -33,6 +33,6 @@ public class BoardUtilImpl implements BoardUtil {
   }
 
   public void clear() {
-    Arrays.stream(board).forEach(x -> Arrays.fill(x, 0));
+    Arrays.stream(board).forEach(x -> Arrays.fill(x, null));
   }
 }
