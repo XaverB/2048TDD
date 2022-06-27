@@ -1,7 +1,3 @@
-:toc:
-:toc-title: Exercise 2 - 2048
-:toclevels: 4
-:source-language: java
 
 image::img/Angabe.png[alt=Angabe,width=640,height=480]
 
@@ -12,6 +8,7 @@ image::img/Angabe.png[alt=Angabe,width=640,height=480]
 |Birklbauer Gerald, Buttinger Xaver
 |22. 05.2022
 |===
+
 
 
 == Lösungsidee
@@ -30,10 +27,6 @@ Für die Bewegung möchten wie wiefolg vorgehen:
     - Diese mit den Nachbarn vergleichen, falls gleich diese vereinigt
     - Falls es eine Lücke zwischen den äußersten Wert und aktuellen Wert gibt, verschieben.
     - Einschränkung: Es dürfen nur zwei Zahlen vereinigt werden. Diese Einschränkung werden wir über den Rundenzähler prüfen, welche wir implementieren müssen.
-
-
-
-
 
 
 
