@@ -169,11 +169,11 @@ public class GameImpl implements Game {
     this.generator = generator;
     boardUtil = new BoardUtilImpl(board);
   }
-
-  public GameImpl(BoardUtil boardUtil) {
-    this.generator = new GameRandomGeneratorImpl();
-    this.boardUtil = boardUtil;
-  }
+//
+//  public GameImpl(BoardUtil boardUtil) {
+//    this.generator = new GameRandomGeneratorImpl();
+//    this.boardUtil = boardUtil;
+//  }
 
   /**
    * Initializes the internal board state with two valid tiles.
@@ -192,7 +192,6 @@ public class GameImpl implements Game {
         continue;
 
       board[row][col] = new Tile(tileValue, row, col);
-//      set(row, col, tileValue);
       setTileCount++;
 
     } while (setTileCount < 2);
@@ -274,63 +273,7 @@ public class GameImpl implements Game {
 
     generateNewTile();
     return;
-//
-//    for(int currentRow = 0; currentRow < TILE_COUNT; currentRow++) {
-//      int furthestEmptySpot = -1;
-//      int currentNextNeighbour = -1;
-//
-//      // 1. find currentElement
-//      for(int currentElement = 0; currentElement < TILE_COUNT; currentElement++) {
-//
-//        if(furthestEmptySpot == -1) {
-//          for (int i = TILE_COUNT - 1; i >= 0; i--) {
-//            if(board[currentRow][i] == 0) {
-//              furthestEmptySpot = i;
-//              break;
-//            }
-//          }
-//        }
-//
-//        // [0, 2, 0, 2]
-//        if(board[currentRow][currentElement] == 0)
-//          continue;
-//
-//        // 2. find next neighbour
-//        for (int i = currentElement+1; i < TILE_COUNT; i++) {
-//          if(board[currentRow][i] == 0)
-//            continue;
-//          currentNextNeighbour = i;
-//          break;
-//        }
-//
-//        // we found the index from neighbour and from current element 😍
-//
-//        if(currentNextNeighbour == -1)
-//          continue;
-//
-//        // 3. merge if equal
-//        if(board[currentRow][currentElement] == board[currentRow][currentNextNeighbour]) {
-//          board[currentRow][currentNextNeighbour] = 0;
-//          if(furthestEmptySpot < currentNextNeighbour)
-//            furthestEmptySpot = currentNextNeighbour;
-//          currentNextNeighbour = -1;
-//          board[currentRow][currentElement] = board[currentRow][currentElement] * 2;
-//        }
-//        // [0, 4, 1, 2]
-//        // swap
-//        board[currentRow][furthestEmptySpot] = board[currentRow][currentElement];
-//        furthestEmptySpot = -1;
-//        board[currentRow][currentElement] = 0;
-//      }
-//    }
 
-    //Zeile ansehen [0,1,2,3][0]
-    // ist Wert != 0, dann schaue auf nächsten Nachbar und merge
-    // schiebe wert nach ganz außen (hilfsfunktion)
-    //nächster Wert bis am ende
-
-
-    //nächste Zeile
   }
 
   /**
@@ -392,15 +335,4 @@ public class GameImpl implements Game {
     return boardString.toString();
   }
 
-//  private int index(int row, int col) {
-//    return row * (TILE_COUNT) + col;
-//  }
-//
-//  private int get(int row, int col) {
-//    return board[index(row, col)];
-//  }
-//
-//  private void set(int row, int col, int value) {
-//    board[index(row, col)] = value;
-//  }
 }
