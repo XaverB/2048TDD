@@ -35,9 +35,22 @@ Für die Bewegung möchten wie wiefolg vorgehen:
 === a) Beschreibung Entwicklungsprozess mit TDD
 
 Wir haben uns entschieden, dass wir die Funktionalität von IntellJ nützen werden, wo beide gleichzeitig programmieren können.
-Jedoch möchten wir alle Implementierungsschritte gemeinsam machen, daher wird eine den Code verfassen und der andere wird Fehlervermeidung achten.
+Jedoch möchten wir alle Implementierungsschritte gemeinsam machen, daher wird eine den Code verfassen und der andere wird auf Fehlervermeidung achten.
 Bevor wir eine Methode implementieren, werden natürlich eine Test schreiben, welche fehlschlägt. Nach der Implementierung werden wir Test ausführen.
 Sollte der Test fehlschlagen, werden wir die Methode überarbeiten, bis der Test erfolgreich ist.
+
+=== Notizen während der Entwicklung
+
+* Diskussion der Lösung und festlegung eines Vorgehen mit Integer Array
+* Start mit einfachen Methoden wie getMoves und getScore (Start mit Testfälle, dann Implementierung der Methode)
+* Erzeugung eines RandomGeneratorStub, da wir diesen für die Methode initialize benötigen. Dadurch auch erstes Refakor vom Konstruktor.
+* Nächster Schritte waren getMoves, isOver, isWon. Danach stand das nächste Refaktoring an, wo wir die BoardUtil erzeugt haben. Hier haben uns die Tests schon sehr gut geholfen.
+* Beginn mit der Fahrbewegung und Merge. Hier haben wir schnell gemerkt, dass wir mit unserer ersten Lösung nicht zufrieden waren.
+    Wir haben nun beschlossen, dass wir einen größeren Umbau vornehmen. (Umstellung von Integer auf Tiles). Bei diesem Schritt haben wir sehr von unseren Testfällen profitiert, da dieser großer Umbau dadurch schnell erledigt war.
+* Erste echter Test. Nach einigen Zügen haben wir bemerkt, dass wir eine Situation bei den Tests übersehen haben. Diesen haben wir gleich als Testfall implementiert.
+* Überprüfung Line Coverage -> war 90%. Danach haben wir für die fehlenden Lines noch Testfälle geschrieben und den Code nochmals einem Refaktorieng unterzogen.
+
+
 === b) Erfahrung mit TDD
 
 **- Gerald: ** Ich hatte vor dieser Übung noch keine Erfahrung mit Pair Programming und TDD. Wir haben immer versucht, den TDD Prozess strikt einzuhalten, was uns zu Beginn extrem gut gelungen ist.
