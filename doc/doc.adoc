@@ -125,5 +125,30 @@ include::../src/test/java/spw4/game2048/GameTest.java[]
 include::../src/test/java/spw4/game2048/TwoOrFourGeneratorTest.java[]
 ----
 
+### Testfall TileTest
+[source, java, linenums ]
+----
+include::../src/test/java/spw4/game2048/TileTest.java[]
+----
 
 == Testfälle
+
+=== BoardUtilTest
+image::img/BoardUtilTest.png[alt=Angabe,width=640,height=480]
+
+=== GameMoveTest
+image::img/GameMoveTest.png[alt=Angabe,width=640,height=480]
+
+=== GameTest
+image::img/GameTest.png[alt=Angabe,width=640,height=480]
+
+=== TileTest
+image::img/TileTest.png[alt=Angabe,width=640,height=480]
+
+=== GameRandomGeneratorTest
+image::img/GameRandomGeneratorTest.png[alt=Angabe,width=640,height=480]
+
+=== Line Coverage
+Line Coverage 100% -> Main Methode wurde von uns nicht betrachtet, da wir diese erhalten haben.
+
+image::img/coverage.png[alt=Angabe,width=640,height=480]
