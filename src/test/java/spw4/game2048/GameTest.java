@@ -149,7 +149,6 @@ import java.util.List;
     sut = new GameImpl(randomStub);
     sut.initialize();
     sut.move(Direction.right);
-    System.out.println(sut.toString());
 
     int expected = 4;
     int result = sut.getScore();

@@ -102,10 +102,9 @@ public class GameMoveTest {
     board[0][0] = ((GameImpl) sut).new Tile(2, 0, 0);
     board[0][1] = ((GameImpl) sut).new Tile(2, 0, 1);
     board[0][3] = ((GameImpl) sut).new Tile(2, 0, 3);
-    System.out.println(sut.toString());
     ((GameImpl)sut).board = board;
     sut.move(Direction.right);
-    System.out.println(sut.toString());
+
     assertEquals(null, ((GameImpl)sut).board[0][0]);
     assertEquals(null, ((GameImpl)sut).board[0][1]);
     assertEquals(((GameImpl) sut).new Tile(2), ((GameImpl)sut).board[0][2]);
@@ -192,7 +191,6 @@ public class GameMoveTest {
     board[0][3] = ((GameImpl) sut).new Tile(8, 0, 3);
     ((GameImpl)sut).board = board;
     sut.move(Direction.left);
-    System.out.println(sut.getMoves());
 
     assertEquals(((GameImpl) sut).new Tile(4), ((GameImpl)sut).board[0][0]);
     assertEquals(((GameImpl) sut).new Tile(4), ((GameImpl)sut).board[0][1]);
