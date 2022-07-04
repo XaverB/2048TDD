@@ -3,8 +3,8 @@ package spw4.game2048;
 import java.util.Iterator;
 
 public class GameRandomGeneratorStub implements GameRandomGenerator {
-  private Iterator<Integer> tileValueIterator;
-  private Iterator<Integer> indexValueIterator;
+  private final Iterator<Integer> tileValueIterator;
+  private final Iterator<Integer> indexValueIterator;
 
   public GameRandomGeneratorStub(Iterable<Integer> tileValues, Iterable<Integer> indexValues) {
     tileValueIterator = tileValues.iterator();
