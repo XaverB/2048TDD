@@ -1,10 +1,5 @@
 package spw4.game2048;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class GameImpl implements Game {
 
   public class Tile {
@@ -12,12 +7,22 @@ public class GameImpl implements Game {
     private int row;
     private int col;
     private int value;
+
+    /**
+     * Keep track of the last round in which this tile was merged to avoid multiple merges per move
+     */
     private int lastMergedInRound = -1;
 
+    /**
+     * Creates a new tile
+     */
     public Tile(int value) {
       this.value = value;
     }
 
+    /**
+     * Creates a new tile and adds it to the internal storage of the linked Game object
+     */
     public Tile(int value, int row, int col) {
       this.value = value;
       board[row][col] = this;
@@ -25,40 +30,30 @@ public class GameImpl implements Game {
       this.col = col;
     }
 
+    /**
+     * Moves the current tile to the desired direction. This method will take care of merges for the current and next tile.
+     */
     public void move(Direction direction) {
 
-      boolean continueMove = true;
+      boolean shouldContinueMove = true;
 
       int rowDelta = 0;
       int colDelta = 0;
 
       switch (direction) {
-
-        case up -> {
-          rowDelta--;
-        }
-        case down -> {
-          rowDelta++;
-
-        }
-        case left -> {
-          colDelta--;
-
-        }
-        case right -> {
-          colDelta++;
-
-        }
+        case up -> rowDelta--;
+        case down -> rowDelta++;
+        case left -> colDelta--;
+        case right -> colDelta++;
       }
 
-      // right
       do {
+        boolean isOutOfBounds = row + rowDelta >= TILE_COUNT || col + colDelta >= TILE_COUNT
+                || row + rowDelta < 0 || col + colDelta < 0;
 
-        if (row + rowDelta >= TILE_COUNT || col + colDelta >= TILE_COUNT
-                || row + rowDelta < 0 || col + colDelta < 0) {
+        if (isOutOfBounds) {
           break;
         }
-
 
         Tile neighbour = board[row + rowDelta][col + colDelta];
         if (neighbour == null) {
@@ -67,28 +62,21 @@ public class GameImpl implements Game {
           row += rowDelta;
           col += colDelta;
           board[row][col] = this;
-
         } else {
+          // we only want to merge a tile one time per move
           boolean mergeAllowed = this.lastMergedInRound < movesCounter && neighbour.lastMergedInRound < movesCounter;
-          if (neighbour.equals(this) && mergeAllowed) {
+          boolean shouldMerge = neighbour.equals(this) && mergeAllowed;
+          if (shouldMerge) {
             board[neighbour.row][neighbour.col] = null;
-            neighbour = null;
             this.value *= 2;
             score += this.value;
             this.lastMergedInRound = movesCounter;
-
           } else {
-            continueMove = false;
+            shouldContinueMove = false;
           }
         }
       }
-      while (continueMove);
-
-    }
-
-    public void merge(Tile tile) {
-      tile.value = tile.value * 2;
-      board[row][col] = null;
+      while (shouldContinueMove);
     }
 
     public boolean isEmpty() {
@@ -124,16 +112,15 @@ public class GameImpl implements Game {
       if (o == this) {
         return true;
       }
-      if (!(o instanceof Tile)) {
+      if (!(o instanceof Tile t)) {
         return false;
       }
-      Tile t = (Tile) o;
       return this.value == t.value;
     }
 
     @Override
     public String toString() {
-      return new String(value + " " + row + " " + col);
+      return value + " " + row + " " + col;
     }
 
     public int getLastMergedInRound() {
@@ -143,13 +130,12 @@ public class GameImpl implements Game {
     public void setLastMergedInRound(int lastMergedInRound) {
       this.lastMergedInRound = lastMergedInRound;
     }
-  }
+  } // Tile
 
   /**
-   * Index range for board access row is from 0 - 3
+   * Index range for board access row is from 0 to 3
    */
   public static final int TILE_COUNT = 4;
-  public static final int WIN_VALUE = 2048;
   private int score = 0;
   private int movesCounter = 0;
   private boolean isOver = false;
@@ -164,16 +150,10 @@ public class GameImpl implements Game {
     boardUtil = new BoardUtilImpl(board);
   }
 
-
   public GameImpl(GameRandomGenerator generator) {
     this.generator = generator;
     boardUtil = new BoardUtilImpl(board);
   }
-//
-//  public GameImpl(BoardUtil boardUtil) {
-//    this.generator = new GameRandomGeneratorImpl();
-//    this.boardUtil = boardUtil;
-//  }
 
   /**
    * Initializes the internal board state with two valid tiles.
@@ -210,7 +190,6 @@ public class GameImpl implements Game {
     return board[row][col] == null ? 0 : board[row][col].getValue();
   }
 
-
   public boolean isOver() {
     return isOver;
   }
@@ -221,72 +200,71 @@ public class GameImpl implements Game {
 
   public void move(Direction direction) {
     movesCounter++;
+    moveTiles(direction);
+    generateNewTile();
+  }
+
+  private void moveTiles(Direction direction) {
     switch (direction) {
-      case up -> {
-        for (int currentColumn = 0; currentColumn < TILE_COUNT; currentColumn++) {
-          Tile toppest = null;
-          for (int i = 0; i < TILE_COUNT; i++) {
-            if (board[i][currentColumn] != null) {
-              toppest = board[i][currentColumn];
-              toppest.move(direction);
-            }
-          }
-        }
-      }
-      case down -> {
-        for (int currentColumn = 0; currentColumn < TILE_COUNT; currentColumn++) {
-          Tile lowest = null;
-          for (int i = TILE_COUNT - 1; i >= 0; i--) {
-            if (board[i][currentColumn] != null) {
-              lowest = board[i][currentColumn];
-              lowest.move(direction);
-            }
-          }
-        }
-      }
-      case left -> {
-        for (int currentRow = 0; currentRow < TILE_COUNT; currentRow++) {
-          Tile leftest = null;
-          for (int i = 0; i < TILE_COUNT; i++) {
-            if (board[currentRow][i] != null) {
-              leftest = board[currentRow][i];
-              leftest.move(direction);
-            }
-          }
-        }
-      }
-      case right -> {
-        // shift EACH row
-        for (int currentRow = 0; currentRow < TILE_COUNT; currentRow++) {
-          // we move right, so start with the rightest element
-          // find the rightest element
-          Tile rightest = null;
-          for (int i = TILE_COUNT - 1; i >= 0; i--) {
-            if (board[currentRow][i] != null) {
-              rightest = board[currentRow][i];
-              rightest.move(direction);
-            }
-          }
+      case up -> moveTilesUp();
+      case left -> moveTilesLeft();
+      case down -> moveTilesDown();
+      case right -> moveTilesRight();
+    }
+  }
+
+  private void moveTilesRight() {
+    for (int currentRow = 0; currentRow < TILE_COUNT; currentRow++) {
+      for (int i = TILE_COUNT - 1; i >= 0; i--) {
+        if (board[currentRow][i] != null) {
+          Tile currentTile = board[currentRow][i];
+          currentTile.move(Direction.right);
         }
       }
     }
+  }
 
-    generateNewTile();
-    return;
+  private void moveTilesDown() {
+    for (int currentColumn = 0; currentColumn < TILE_COUNT; currentColumn++) {
+      for (int currentRow = TILE_COUNT - 1; currentRow >= 0; currentRow--) {
+        if (board[currentRow][currentColumn] != null) {
+          Tile currentTile = board[currentRow][currentColumn];
+          currentTile.move(Direction.down);
+        }
+      }
+    }
+  }
 
+  private void moveTilesLeft() {
+    for (int currentRow = 0; currentRow < TILE_COUNT; currentRow++) {
+      for (int currentColumn = 0; currentColumn < TILE_COUNT; currentColumn++) {
+        if (board[currentRow][currentColumn] != null) {
+          Tile currentTile = board[currentRow][currentColumn];
+          currentTile.move(Direction.left);
+        }
+      }
+    }
+  }
+
+  private void moveTilesUp() {
+    for (int currentColumn = 0; currentColumn < TILE_COUNT; currentColumn++) {
+      for (int currentRow = 0; currentRow < TILE_COUNT; currentRow++) {
+        if (board[currentRow][currentColumn] != null) {
+          Tile currentTile = board[currentRow][currentColumn];
+          currentTile.move(Direction.up);
+        }
+      }
+    }
   }
 
   /**
    * Returns if the tile at row, col is empty (=value is 0)
    *
-   * @param row
-   * @param col
    * @return Returns true if the tile is empty, else false
    */
   private boolean isTileEmpty(int row, int col) {
     checkBounds(row, col);
-//    return get(row, col) == 0;
-    return board[row][col] == null ? true : board[row][col].getValue() == 0;
+    return board[row][col] == null || board[row][col].getValue() == 0;
   }
 
   private void checkBounds(int row, int col) {
@@ -297,14 +275,17 @@ public class GameImpl implements Game {
       throw new IndexOutOfBoundsException("Column index (" + col + ") is >= " + TILE_COUNT);
   }
 
+  /**
+   * Generates a new tile and put it into a random position.
+   * If the board is full, the internal state isOver will be set to true.
+   */
   private void generateNewTile() {
-    Tile newTile = null;
-
-    if(boardUtil.isFull()) {
+    if (boardUtil.isFull()) {
       isOver = true;
       return;
     }
 
+    Tile newTile = null;
     do {
       int row = generator.generateIndex();
       int col = generator.generateIndex();
@@ -314,7 +295,6 @@ public class GameImpl implements Game {
         continue;
       newTile = new Tile(tileValue, row, col);
     } while (newTile == null);
-
   }
 
   @Override
@@ -326,7 +306,7 @@ public class GameImpl implements Game {
         if (board[row][col] == null) {
           boardString.append("." + " | ");
         } else {
-          boardString.append(board[row][col].getValue() + " | ");
+          boardString.append(board[row][col].getValue()).append(" | ");
         }
       }
       boardString.append("\n");
@@ -334,5 +314,4 @@ public class GameImpl implements Game {
     boardString.append("---------------------------------\n");
     return boardString.toString();
   }
-
 }

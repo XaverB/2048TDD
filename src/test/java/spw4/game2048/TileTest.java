@@ -22,23 +22,24 @@ public class TileTest {
   }
 
 
+  @SuppressWarnings("AssertBetweenInconvertibleTypes")
   @Test
   void equalsInnerClassTileWithInvalidParameterReturnFalse(){
     GameImpl.Tile sut = game.new Tile(4,0,0);
-    assertFalse(sut.equals(new String("dummy")));
+    assertNotEquals(sut, "dummy");
   }
 
   @Test
   void equalsInnerClassTileSameTileReturnTrue(){
     GameImpl.Tile sut = game.new Tile(4,0,0);
-    assertTrue(sut.equals(sut));
+    assertEquals(sut, sut);
   }
 
   @Test
   void equalsInnerClassTileWithSameValueReturnTrue(){
     GameImpl.Tile sut = game.new Tile(4,0,0);
     GameImpl.Tile dummy = game.new Tile(4,2,2);
-    assertTrue(sut.equals(dummy));
+    assertEquals(sut, dummy);
   }
 
 
@@ -93,24 +94,11 @@ public class TileTest {
     assertEquals(colNumber, sut.getCol());
   }
 
-  @ParameterizedTest(name = "tileValue = {0}")
-  @ValueSource(ints = {2,4,8,256})
-  void mergeInnerClassTileReturnDoubleArgument(int tileValue){
-    GameImpl.Tile sut = game.new Tile(tileValue,0,0);
-    GameImpl.Tile dummyTile = game.new Tile(tileValue,1,0);
-
-    dummyTile.merge(sut);
-    int result = tileValue * 2;
-    assertAll(
-            ()->assertEquals(result, sut.getValue()),
-            ()->assertNull(game.board[1][0])
-    );
-  }
 
   @Test
   void toStringInnerClassTileReturnValidString(){
     GameImpl.Tile sut = game.new Tile(1,2,3);
-    String result = new String("1 2 3");
+    String result = "1 2 3";
     assertEquals(result, sut.toString());
   }
 

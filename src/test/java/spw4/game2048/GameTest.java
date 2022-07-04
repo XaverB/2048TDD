@@ -68,7 +68,7 @@ import java.util.List;
     for (int i = 0; i < ROW_COUNT; i++) {
       for (int j = 0; j < COL_COUNT; j++) {
         // do not check our set tile values when checking the 0 fields
-        if((i != 0 && j != 0) || (i != 0 && j != 1) ){
+        if(i != 0){
             assertEquals(0, sut.getValueAt(i,j));
         }
       }
@@ -86,17 +86,13 @@ import java.util.List;
   @ParameterizedTest(name = "row = {0}, column is valid")
   @CsvSource( {"-4,", "-1", "4", "5"})
   void getValueAtWithInvalidRowArgumentThrowsIndexOutOfBoundsException(int row){
-    assertThrows(IndexOutOfBoundsException.class, ()->{
-      sut.getValueAt(row, 0);
-    });
+    assertThrows(IndexOutOfBoundsException.class, ()-> sut.getValueAt(row, 0));
   }
 
   @ParameterizedTest(name = "column = {0}, row is valid")
   @CsvSource( {"-4,", "-1", "4", "5"})
   void getValueAtWithInvalidColumnArgumentThrowsIndexOutOfBoundsException(int col){
-    assertThrows(IndexOutOfBoundsException.class, ()->{
-      sut.getValueAt(0, col);
-    });
+    assertThrows(IndexOutOfBoundsException.class, ()-> sut.getValueAt(0, col));
   }
 
   @Test
@@ -217,13 +213,14 @@ import java.util.List;
 
     sut = new GameImpl(randomStub);
     sut.initialize();
-    String result = new String("---------------------------------\n"+
-            "2 | . | 4 | . | \n"+
-            ". | . | . | . | \n"+
-            ". | . | . | . | \n"+
-            ". | . | . | . | \n"+
-            "---------------------------------\n"
-    );
+    String result = """
+            ---------------------------------
+            2 | . | 4 | . |\s
+            . | . | . | . |\s
+            . | . | . | . |\s
+            . | . | . | . |\s
+            ---------------------------------
+            """;
     assertEquals(result, sut.toString());
   }
 
