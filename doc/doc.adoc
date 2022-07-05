@@ -47,6 +47,7 @@ Sollte der Test fehlschlagen, werden wir die Methode überarbeiten, bis der Test
 * Nächster Schritte waren getMoves, isOver, isWon. Danach stand das nächste Überarbeiten an, wo wir die BoardUtil erzeugt haben. Hier haben uns die Tests schon sehr gut geholfen.
 * Beginn mit der Fahrbewegung und Merge. Hier haben wir schnell gemerkt, dass wir mit unserer ersten Lösung nicht zufrieden waren.
     Wir haben nun beschlossen, dass wir einen größeren Umbau vornehmen. (Umstellung von Integer auf Tiles). Bei diesem Schritt haben wir sehr von unseren Testfällen profitiert, da dieser großer Umbau dadurch schnell erledigt war.
+* Bei den Fahrbewegungstestfällen haben wir einmal einen Testfall falsch designed, welche zu einem falschen gülten Ergebnis geführt hat. Dieser Test hat uns einige Zeit in eine falsche Richtung gelenkt hat. Das hat die Fehlersuche verlängert.
 * Erste echter Test. Nach einigen Zügen haben wir bemerkt, dass wir eine Situation bei den Tests übersehen haben. Diesen haben wir gleich als Testfall implementiert.
 * Überprüfung Line Coverage -> war 90 %. Danach haben wir für die fehlenden Lines noch Testfälle geschrieben und den Code nochmals einer Überarbeitung unterzogen.
 
@@ -54,9 +55,7 @@ Sollte der Test fehlschlagen, werden wir die Methode überarbeiten, bis der Test
 === b) Erfahrung mit TDD
 
 **- Gerald: ** Ich hatte vor dieser Übung noch keine Erfahrung mit Pair Programming und TDD. Wir haben immer versucht, den TDD Prozess strikt einzuhalten, was uns zu Beginn extrem gut gelungen ist.
-                In unserem Entwicklungsprozess hatten wir eine Phase, wo wir den strengen TDD Prozess kurzzeitig verlassen haben. Dies haben wir jedoch schnell bemerkt, wodurch wir gleich wieder auf das TDD Vorgehen zurückgekehrt sind.
-                Wir hatten mehrere Refaktoringschritte in unserem Entwicklungsprozess, wo uns die Testfälle extrem geholfen haben und wir dadurch auch Zeit einsparen konnten, welche wir durch die Test benötigt haben.
-                Ich denke, dass sich TDD für die Wartung eines langlebigen Softwareprodukts extrem gut eignet. Eine wichtige Erkenntnis für mich war, dass man sich die Testfälle extrem gut überlegen muss und diese korrekt implementieren muss.
+In unserem Entwicklungsprozess hatten wir eine Phase, wo wir den strengen TDD Prozess kurzzeitig verlassen haben. Dies haben wir jedoch schnell bemerkt, wodurch wir gleich wieder auf das TDD Vorgehen zurückgekehrt sind. Wir hatten mehrere Refaktoringschritte in unserem Entwicklungsprozess, wo uns die Testfälle extrem geholfen haben und wir dadurch auch Zeit einsparen konnten, welche wir durch die Test benötigt haben. Ich denke, dass sich TDD für die Wartung eines langlebigen Softwareprodukts extrem gut eignet. Eine wichtige Erkenntnis für mich war, dass man sich die Testfälle extrem gut überlegen muss und diese korrekt implementieren muss.
 
 **- Xaver: ** Ich persönlich bin ein großer Fan von TDD und einem verlässlichen Sicherheitsnetz aus guten Testfällen. Leider konnte ich bis heute meine Kollegen nicht davon überzeugen.
 Umso mehr hat mir diese Übung gefallen. Im Verlauf der Entwicklung bewahrheiteten sich schnell die von Herrn Wagner angesprochenen Vorteile sowie Pitfalls. Bei komplizierteren Abschnitten ist das Schreiben von guten Testfällen wirklich nicht leicht. In besonders bei diesen Passagen gerate ich leicht in die Versuchung vom strikten TDD abzukommen. Bei unseren Überarbeitungen des Quellcodes hat sich das Sicherheitsnetz fürs Refactoring von der besten Seite gezeigt. Ich würde mir wünschen, mit solch einer tollen Testabdeckung unseren legacy Code überarbeiten zu können.
@@ -136,10 +135,10 @@ include::../src/test/java/spw4/game2048/GameRandomGeneratorStub.java[]
 include::../src/test/java/spw4/game2048/GameTest.java[]
 ----
 
-### Testfall TwoOrFourGeneratorTest
+### Testfall GameRandomGeneratorTest
 [source, java, linenums ]
 ----
-include::../src/test/java/spw4/game2048/TwoOrFourGeneratorTest.java[]
+include::../src/test/java/spw4/game2048/GameRandomGeneratorTest.java[]
 ----
 
 ### Testfall TileTest
@@ -169,3 +168,6 @@ image::img/GameRandomGeneratorTest.png[alt=Angabe,width=640,height=480]
 Line Coverage 100% -> Main Methode wurde von uns nicht betrachtet, da wir diese erhalten haben.
 
 image::img/coverage.png[alt=Angabe,width=640,height=480]
+
+=== Spiel
+image::img/Spiel.png[alt=Angabe,width=640,height=480]

@@ -1,6 +1,7 @@
 package spw4.game2048;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -23,19 +24,22 @@ public class TileTest {
 
 
   @SuppressWarnings("AssertBetweenInconvertibleTypes")
+  @DisplayName("Tile.equals with invalid argument return false")
   @Test
   void equalsInnerClassTileWithInvalidParameterReturnFalse(){
     GameImpl.Tile sut = game.new Tile(4,0,0);
-    assertNotEquals(sut, "dummy");
+    assertNotEquals("dummy",sut);
   }
 
   @Test
+  @DisplayName("Tile.equals with same Tile return true")
   void equalsInnerClassTileSameTileReturnTrue(){
     GameImpl.Tile sut = game.new Tile(4,0,0);
     assertEquals(sut, sut);
   }
 
   @Test
+  @DisplayName("Tile.equals with other Tile return true")
   void equalsInnerClassTileWithSameValueReturnTrue(){
     GameImpl.Tile sut = game.new Tile(4,0,0);
     GameImpl.Tile dummy = game.new Tile(4,2,2);
@@ -45,6 +49,7 @@ public class TileTest {
 
   @ParameterizedTest(name = "value = {0}")
   @ValueSource(ints = {0,2,4,8,256})
+  @DisplayName("Tile.getValue with valid argument return value")
   void getValueInnerClassTileWithValidValue(int value){
     GameImpl.Tile sut = game.new Tile(value,0,0);
     assertEquals(value, sut.getValue());
@@ -52,6 +57,7 @@ public class TileTest {
 
   @ParameterizedTest(name = "value = {0}")
   @ValueSource(ints = {0,2,4,8,256})
+  @DisplayName("Tile.setValue with valid argument return value")
   void setValueInnerClassTileWithValidValue(int value){
     GameImpl.Tile sut = game.new Tile(0,0,0);
     sut.setValue(value);
@@ -59,6 +65,7 @@ public class TileTest {
   }
 
   @Test
+  @DisplayName("Tile.isEmtpy with value zero return true")
   void isEmptyInnerClassTileReturnTrue(){
     GameImpl.Tile sut = game.new Tile(0,0,0);
     assertTrue(sut.isEmpty());
@@ -66,6 +73,7 @@ public class TileTest {
 
   @ParameterizedTest(name = "rowNumber = {0}")
   @ValueSource(ints = {0,1,2,3})
+  @DisplayName("Tile.getRow with valid value return value")
   void getRowInnerClassTileReturnRowNumber(int rowNumber){
     GameImpl.Tile sut = game.new Tile(0,rowNumber,0);
     assertEquals(rowNumber, sut.getRow());
@@ -73,6 +81,7 @@ public class TileTest {
 
   @ParameterizedTest(name = "rowNumber = {0}")
   @ValueSource(ints = {0,1,2,3})
+  @DisplayName("Tile.setRow with valid value return value")
   void setRowInnerClassTileReturnRowNumber(int rowNumber){
     GameImpl.Tile sut = game.new Tile(0,0,0);
     sut.setRow(rowNumber);
@@ -81,6 +90,7 @@ public class TileTest {
 
   @ParameterizedTest(name = "colNumber = {0}")
   @ValueSource(ints = {0,1,2,3})
+  @DisplayName("Tile.getCol with valid value return value")
   void getColInnerClassTileReturnColNumber(int colNumber){
     GameImpl.Tile sut = game.new Tile(0,0,colNumber);
     assertEquals(colNumber, sut.getCol());
@@ -88,6 +98,7 @@ public class TileTest {
 
   @ParameterizedTest(name = "colNumber = {0}")
   @ValueSource(ints = {0,1,2,3})
+  @DisplayName("Tile.setCol with valid value return value")
   void setColInnerClassTileReturnColNumber(int colNumber){
     GameImpl.Tile sut = game.new Tile(0,0,0);
     sut.setCol(colNumber);
@@ -96,6 +107,7 @@ public class TileTest {
 
 
   @Test
+  @DisplayName("Tile.toString with valid arguments return arguments as string")
   void toStringInnerClassTileReturnValidString(){
     GameImpl.Tile sut = game.new Tile(1,2,3);
     String result = "1 2 3";
@@ -105,6 +117,7 @@ public class TileTest {
 
   @ParameterizedTest(name = "tileValue = {0}")
   @ValueSource(ints = {1,2,3,4})
+  @DisplayName("Tile.setLastMergedInRound with value return value ")
   void getLastMergedInRoundInnerClassTileReturnLastMergedInRoundValue(int round){
     GameImpl.Tile sut = game.new Tile(1,2,3);
     sut.setLastMergedInRound(round);
