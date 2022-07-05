@@ -10,11 +10,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @ExtendWith(MockitoExtension.class)
 public class GameMoveTest {
 
-  Game sut;
+  GameImpl sut;
 
   @Mock
   GameRandomGeneratorStub randomStub;
@@ -30,15 +31,15 @@ public class GameMoveTest {
   void moveRightDev1() {
     GameImpl.Tile[][] board = new GameImpl.Tile[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
     // [0, 2, 0, 2]
-    board[0][1] = ((GameImpl) sut).new Tile(2, 0, 1);
-    board[0][3] = ((GameImpl) sut).new Tile(2, 0, 3);
+    board[0][1] = sut.new Tile(2, 0, 1);
+    board[0][3] = sut.new Tile(2, 0, 3);
 
-    ((GameImpl)sut).board = board;
+    sut.board = board;
     sut.move(Direction.right);
-    assertEquals(((GameImpl) sut).new Tile(4, 0, 3), ((GameImpl)sut).board[0][3]);
-    assertEquals(null, ((GameImpl)sut).board[0][0]);
-    assertEquals(null, ((GameImpl)sut).board[0][1]);
-    assertEquals(null, ((GameImpl)sut).board[0][2]);
+    assertEquals(sut.new Tile(4, 0, 3), sut.board[0][3]);
+    assertNull(sut.board[0][0]);
+    assertNull(sut.board[0][1]);
+    assertNull(sut.board[0][2]);
   }
 
   @DisplayName("Game.move with direction right from [0,4,0,2] to [4,2,0,0]")
@@ -46,14 +47,14 @@ public class GameMoveTest {
   void moveRightDev2() {
     GameImpl.Tile[][] board = new GameImpl.Tile[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
     // [0, 4, 0, 2]
-    board[0][1] = ((GameImpl) sut).new Tile(4, 0, 1);
-    board[0][3] = ((GameImpl) sut).new Tile(2, 0, 3);
-    ((GameImpl)sut).board = board;
+    board[0][1] = sut.new Tile(4, 0, 1);
+    board[0][3] = sut.new Tile(2, 0, 3);
+    sut.board = board;
     sut.move(Direction.right);
-    assertEquals(((GameImpl) sut).new Tile(4), ((GameImpl)sut).board[0][2]);
-    assertEquals(((GameImpl) sut).new Tile(2), ((GameImpl)sut).board[0][3]);
-    assertEquals(null, ((GameImpl)sut).board[0][0]);
-    assertEquals(null, ((GameImpl)sut).board[0][1]);
+    assertEquals(sut.new Tile(4), sut.board[0][2]);
+    assertEquals(sut.new Tile(2), sut.board[0][3]);
+    assertNull(sut.board[0][0]);
+    assertNull(sut.board[0][1]);
   }
 
 
@@ -62,18 +63,18 @@ public class GameMoveTest {
   void moveRightDev3() {
     GameImpl.Tile[][] board = new GameImpl.Tile[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
 
-    board[2][0] = ((GameImpl) sut).new Tile(4, 2, 0);
-    board[2][1] = ((GameImpl) sut).new Tile(4, 2, 1);
-    board[2][2] = ((GameImpl) sut).new Tile(4, 2, 2);
-    board[2][3] = ((GameImpl) sut).new Tile(4, 2, 3);
-    ((GameImpl)sut).board = board;
+    board[2][0] = sut.new Tile(4, 2, 0);
+    board[2][1] = sut.new Tile(4, 2, 1);
+    board[2][2] = sut.new Tile(4, 2, 2);
+    board[2][3] = sut.new Tile(4, 2, 3);
+    sut.board = board;
 
     sut.move(Direction.right);
 
-    assertEquals(null, ((GameImpl)sut).board[2][0]);
-    assertEquals(null, ((GameImpl)sut).board[2][1]);
-    assertEquals(((GameImpl) sut).new Tile(8), ((GameImpl)sut).board[2][2]);
-    assertEquals(((GameImpl) sut).new Tile(8), ((GameImpl)sut).board[2][3]);
+    assertNull(sut.board[2][0]);
+    assertNull(sut.board[2][1]);
+    assertEquals(sut.new Tile(8), sut.board[2][2]);
+    assertEquals(sut.new Tile(8), sut.board[2][3]);
 
   }
 
@@ -82,16 +83,16 @@ public class GameMoveTest {
   void moveRightDev4() {
     GameImpl.Tile[][] board = new GameImpl.Tile[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
 
-    board[0][0] = ((GameImpl) sut).new Tile(2, 0, 0);
-    board[0][1] = ((GameImpl) sut).new Tile(4, 0, 1);
-    board[0][2] = ((GameImpl) sut).new Tile(2, 0, 2);
-    board[0][3] = ((GameImpl) sut).new Tile(4, 0, 3);
-    ((GameImpl)sut).board = board;
+    board[0][0] = sut.new Tile(2, 0, 0);
+    board[0][1] = sut.new Tile(4, 0, 1);
+    board[0][2] = sut.new Tile(2, 0, 2);
+    board[0][3] = sut.new Tile(4, 0, 3);
+    sut.board = board;
     sut.move(Direction.right);
-    assertEquals(((GameImpl) sut).new Tile(2), ((GameImpl)sut).board[0][0]);
-    assertEquals(((GameImpl) sut).new Tile(4), ((GameImpl)sut).board[0][1]);
-    assertEquals(((GameImpl) sut).new Tile(2), ((GameImpl)sut).board[0][2]);
-    assertEquals(((GameImpl) sut).new Tile(4), ((GameImpl)sut).board[0][3]);
+    assertEquals(sut.new Tile(2), sut.board[0][0]);
+    assertEquals(sut.new Tile(4), sut.board[0][1]);
+    assertEquals(sut.new Tile(2), sut.board[0][2]);
+    assertEquals(sut.new Tile(4), sut.board[0][3]);
   }
 
   @DisplayName("Game.move with direction right from [2,2,0,2] to [0,0,2,4]")
@@ -99,16 +100,16 @@ public class GameMoveTest {
   void moveRightDev5() {
     GameImpl.Tile[][] board = new GameImpl.Tile[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
 
-    board[0][0] = ((GameImpl) sut).new Tile(2, 0, 0);
-    board[0][1] = ((GameImpl) sut).new Tile(2, 0, 1);
-    board[0][3] = ((GameImpl) sut).new Tile(2, 0, 3);
-    ((GameImpl)sut).board = board;
+    board[0][0] = sut.new Tile(2, 0, 0);
+    board[0][1] = sut.new Tile(2, 0, 1);
+    board[0][3] = sut.new Tile(2, 0, 3);
+    sut.board = board;
     sut.move(Direction.right);
 
-    assertEquals(null, ((GameImpl)sut).board[0][0]);
-    assertEquals(null, ((GameImpl)sut).board[0][1]);
-    assertEquals(((GameImpl) sut).new Tile(2), ((GameImpl)sut).board[0][2]);
-    assertEquals(((GameImpl) sut).new Tile(4), ((GameImpl)sut).board[0][3]);
+    assertNull(sut.board[0][0]);
+    assertNull(sut.board[0][1]);
+    assertEquals(sut.new Tile(2), sut.board[0][2]);
+    assertEquals(sut.new Tile(4), sut.board[0][3]);
 
   }
 
@@ -116,15 +117,15 @@ public class GameMoveTest {
   @Test
   void moveLeftDev1() {
     GameImpl.Tile[][] board = new GameImpl.Tile[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
-    board[0][1] = ((GameImpl) sut).new Tile(2, 0, 1);
-    board[0][3] = ((GameImpl) sut).new Tile(2, 0, 3);
+    board[0][1] = sut.new Tile(2, 0, 1);
+    board[0][3] = sut.new Tile(2, 0, 3);
 
-    ((GameImpl)sut).board = board;
+    sut.board = board;
     sut.move(Direction.left);
-    assertEquals(((GameImpl) sut).new Tile(4), ((GameImpl)sut).board[0][0]);
-    assertEquals(null, ((GameImpl)sut).board[0][1]);
-    assertEquals(null, ((GameImpl)sut).board[0][2]);
-    assertEquals(null, ((GameImpl)sut).board[0][3]);
+    assertEquals(sut.new Tile(4), sut.board[0][0]);
+    assertNull(sut.board[0][1]);
+    assertNull(sut.board[0][2]);
+    assertNull(sut.board[0][3]);
   }
 
   @DisplayName("Game.move with direction left from [0,4,0,2] to [4,2,0,0]")
@@ -132,16 +133,16 @@ public class GameMoveTest {
   void moveLeftDev2() {
     GameImpl.Tile[][] board = new GameImpl.Tile[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
     // [0, 4, 0, 2]
-    board[0][1] = ((GameImpl) sut).new Tile(4, 0, 1);
-    board[0][3] = ((GameImpl) sut).new Tile(2, 0, 3);
-    ((GameImpl)sut).board = board;
+    board[0][1] = sut.new Tile(4, 0, 1);
+    board[0][3] = sut.new Tile(2, 0, 3);
+    sut.board = board;
 
     sut.move(Direction.left);
 
-    assertEquals(((GameImpl) sut).new Tile(4), ((GameImpl)sut).board[0][0]);
-    assertEquals(((GameImpl) sut).new Tile(2), ((GameImpl)sut).board[0][1]);
-    assertEquals(null, ((GameImpl)sut).board[0][2]);
-    assertEquals(null, ((GameImpl)sut).board[0][3]);
+    assertEquals(sut.new Tile(4), sut.board[0][0]);
+    assertEquals(sut.new Tile(2), sut.board[0][1]);
+    assertNull(sut.board[0][2]);
+    assertNull(sut.board[0][3]);
   }
 
   @DisplayName("Game.move with direction left from [4,4,4,4] to [8,8,0,0]")
@@ -149,17 +150,17 @@ public class GameMoveTest {
   void moveLeftDev3() {
     GameImpl.Tile[][] board = new GameImpl.Tile[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
 
-    board[2][0] = ((GameImpl) sut).new Tile(4, 2, 0);
-    board[2][1] = ((GameImpl) sut).new Tile(4, 2, 1);
-    board[2][2] = ((GameImpl) sut).new Tile(4, 2, 2);
-    board[2][3] = ((GameImpl) sut).new Tile(4, 2, 3);
-    ((GameImpl)sut).board = board;
+    board[2][0] = sut.new Tile(4, 2, 0);
+    board[2][1] = sut.new Tile(4, 2, 1);
+    board[2][2] = sut.new Tile(4, 2, 2);
+    board[2][3] = sut.new Tile(4, 2, 3);
+    sut.board = board;
     sut.move(Direction.left);
 
-    assertEquals(((GameImpl) sut).new Tile(8), ((GameImpl)sut).board[2][0]);
-    assertEquals(((GameImpl) sut).new Tile(8), ((GameImpl)sut).board[2][1]);
-    assertEquals(null, ((GameImpl)sut).board[2][2]);
-    assertEquals(null, ((GameImpl)sut).board[2][3]);
+    assertEquals(sut.new Tile(8), sut.board[2][0]);
+    assertEquals(sut.new Tile(8), sut.board[2][1]);
+    assertNull(sut.board[2][2]);
+    assertNull(sut.board[2][3]);
 
   }
 
@@ -168,16 +169,16 @@ public class GameMoveTest {
   void moveLeftDev4() {
     GameImpl.Tile[][] board = new GameImpl.Tile[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
     // [2, 4, 2, 4]
-    board[0][0] = ((GameImpl) sut).new Tile(2, 0, 0);
-    board[0][1] = ((GameImpl) sut).new Tile(4, 0, 1);
-    board[0][2] = ((GameImpl) sut).new Tile(2, 0, 2);
-    board[0][3] = ((GameImpl) sut).new Tile(4, 0, 3);
-    ((GameImpl)sut).board = board;
+    board[0][0] = sut.new Tile(2, 0, 0);
+    board[0][1] = sut.new Tile(4, 0, 1);
+    board[0][2] = sut.new Tile(2, 0, 2);
+    board[0][3] = sut.new Tile(4, 0, 3);
+    sut.board = board;
     sut.move(Direction.left);
-    assertEquals(((GameImpl) sut).new Tile(2), ((GameImpl)sut).board[0][0]);
-    assertEquals(((GameImpl) sut).new Tile(4), ((GameImpl)sut).board[0][1]);
-    assertEquals(((GameImpl) sut).new Tile(2), ((GameImpl)sut).board[0][2]);
-    assertEquals(((GameImpl) sut).new Tile(4), ((GameImpl)sut).board[0][3]);
+    assertEquals(sut.new Tile(2), sut.board[0][0]);
+    assertEquals(sut.new Tile(4), sut.board[0][1]);
+    assertEquals(sut.new Tile(2), sut.board[0][2]);
+    assertEquals(sut.new Tile(4), sut.board[0][3]);
   }
 
   @DisplayName("Game.move with direction left from [2,2,4,8] to [4,4,8,0]")
@@ -185,17 +186,17 @@ public class GameMoveTest {
   void moveLeftDev5() {
     GameImpl.Tile[][] board = new GameImpl.Tile[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
     // 2 | 2 | 4 | 8 |
-    board[0][0] = ((GameImpl) sut).new Tile(2, 0, 0);
-    board[0][1] = ((GameImpl) sut).new Tile(2, 0, 1);
-    board[0][2] = ((GameImpl) sut).new Tile(4, 0, 2);
-    board[0][3] = ((GameImpl) sut).new Tile(8, 0, 3);
-    ((GameImpl)sut).board = board;
+    board[0][0] = sut.new Tile(2, 0, 0);
+    board[0][1] = sut.new Tile(2, 0, 1);
+    board[0][2] = sut.new Tile(4, 0, 2);
+    board[0][3] = sut.new Tile(8, 0, 3);
+    sut.board = board;
     sut.move(Direction.left);
 
-    assertEquals(((GameImpl) sut).new Tile(4), ((GameImpl)sut).board[0][0]);
-    assertEquals(((GameImpl) sut).new Tile(4), ((GameImpl)sut).board[0][1]);
-    assertEquals(((GameImpl) sut).new Tile(8), ((GameImpl)sut).board[0][2]);
-    assertEquals(null, ((GameImpl)sut).board[0][3]);
+    assertEquals(sut.new Tile(4), sut.board[0][0]);
+    assertEquals(sut.new Tile(4), sut.board[0][1]);
+    assertEquals(sut.new Tile(8), sut.board[0][2]);
+    assertNull(sut.board[0][3]);
   }
 
   @DisplayName("Game.move with direction up from [2,0,2,0] to [4,0,0,0]")
@@ -203,21 +204,20 @@ public class GameMoveTest {
   void moveUpDev1() {
     GameImpl.Tile[][] board = new GameImpl.Tile[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
 
-    board[0][0] = ((GameImpl) sut).new Tile(2, 0, 0);
-    board[2][0] = ((GameImpl) sut).new Tile(2, 2, 0);
+    board[0][0] = sut.new Tile(2, 0, 0);
+    board[2][0] = sut.new Tile(2, 2, 0);
 
-
-    ((GameImpl)sut).board = board;
+    sut.board = board;
 
     sut.move(Direction.up);
     assertEquals(
-            ((GameImpl) sut).new Tile(4),
-            ((GameImpl)sut).board[0][0]
+            sut.new Tile(4),
+            sut.board[0][0]
     );
 
-    assertEquals(null, ((GameImpl)sut).board[1][0]);
-    assertEquals(null, ((GameImpl)sut).board[2][0]);
-    assertEquals(null, ((GameImpl)sut).board[3][0]);
+    assertNull(sut.board[1][0]);
+    assertNull(sut.board[2][0]);
+    assertNull(sut.board[3][0]);
   }
 
   @DisplayName("Game.move with direction up from [0,2,2,0] to [4,0,0,0]")
@@ -225,20 +225,20 @@ public class GameMoveTest {
   void moveUpDev2() {
     GameImpl.Tile[][] board = new GameImpl.Tile[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
 
-    board[1][0] = ((GameImpl) sut).new Tile(2, 1, 0);
-    board[2][0] = ((GameImpl) sut).new Tile(2, 2, 0);
+    board[1][0] = sut.new Tile(2, 1, 0);
+    board[2][0] = sut.new Tile(2, 2, 0);
 
 
-    ((GameImpl)sut).board = board;
+    sut.board = board;
     sut.move(Direction.up);
     assertEquals(
-            ((GameImpl) sut).new Tile(4),
-            ((GameImpl)sut).board[0][0]
+            sut.new Tile(4),
+            sut.board[0][0]
     );
 
-    assertEquals(null, ((GameImpl)sut).board[1][0]);
-    assertEquals(null, ((GameImpl)sut).board[2][0]);
-    assertEquals(null, ((GameImpl)sut).board[3][0]);
+    assertNull(sut.board[1][0]);
+    assertNull(sut.board[2][0]);
+    assertNull(sut.board[3][0]);
   }
 
   @DisplayName("Game.move with direction up from [2,2,2,2] to [4,4,0,0]")
@@ -246,37 +246,37 @@ public class GameMoveTest {
   void moveUpDev3() {
     GameImpl.Tile[][] board = new GameImpl.Tile[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
 
-    board[0][0] = ((GameImpl) sut).new Tile(2, 0, 0);
-    board[1][0] = ((GameImpl) sut).new Tile(2, 1, 0);
-    board[2][0] = ((GameImpl) sut).new Tile(2, 2, 0);
-    board[3][0] = ((GameImpl) sut).new Tile(2, 3, 0);
+    board[0][0] = sut.new Tile(2, 0, 0);
+    board[1][0] = sut.new Tile(2, 1, 0);
+    board[2][0] = sut.new Tile(2, 2, 0);
+    board[3][0] = sut.new Tile(2, 3, 0);
 
-    board[0][1] = ((GameImpl) sut).new Tile(2, 0, 1);
-    board[1][1] = ((GameImpl) sut).new Tile(2, 1, 1);
-    board[2][1] = ((GameImpl) sut).new Tile(2, 2, 1);
-    board[3][1] = ((GameImpl) sut).new Tile(2, 3, 1);
+    board[0][1] = sut.new Tile(2, 0, 1);
+    board[1][1] = sut.new Tile(2, 1, 1);
+    board[2][1] = sut.new Tile(2, 2, 1);
+    board[3][1] = sut.new Tile(2, 3, 1);
 
-    ((GameImpl)sut).board = board;
+    sut.board = board;
     sut.move(Direction.up);
     assertEquals(
-            ((GameImpl) sut).new Tile(4),
-            ((GameImpl)sut).board[0][0]
+            sut.new Tile(4),
+            sut.board[0][0]
     );
     assertEquals(
-            ((GameImpl) sut).new Tile(4),
-            ((GameImpl)sut).board[1][0]
+            sut.new Tile(4),
+            sut.board[1][0]
     );
     assertEquals(
-            ((GameImpl) sut).new Tile(4),
-            ((GameImpl)sut).board[0][1]
+            sut.new Tile(4),
+            sut.board[0][1]
     );
     assertEquals(
-            ((GameImpl) sut).new Tile(4),
-            ((GameImpl)sut).board[1][1]
+            sut.new Tile(4),
+            sut.board[1][1]
     );
 
-    assertEquals(null, ((GameImpl)sut).board[2][0]);
-    assertEquals(null, ((GameImpl)sut).board[3][0]);
+    assertNull(sut.board[2][0]);
+    assertNull(sut.board[3][0]);
   }
 
   @DisplayName("Game.move with direction down from [2,0,2,0] to [4,0,0,0]")
@@ -284,19 +284,19 @@ public class GameMoveTest {
   void moveDownDev1() {
     GameImpl.Tile[][] board = new GameImpl.Tile[GameImpl.TILE_COUNT][GameImpl.TILE_COUNT];
 
-    board[0][0] = ((GameImpl) sut).new Tile(2, 0, 0);
-    board[2][0] = ((GameImpl) sut).new Tile(2, 2, 0);
+    board[0][0] = sut.new Tile(2, 0, 0);
+    board[2][0] = sut.new Tile(2, 2, 0);
 
 
-    ((GameImpl)sut).board = board;
+    sut.board = board;
     sut.move(Direction.down);
     assertEquals(
-            ((GameImpl) sut).new Tile(4),
-            ((GameImpl)sut).board[3][0]
+            sut.new Tile(4),
+            sut.board[3][0]
     );
 
-    assertEquals(null, ((GameImpl)sut).board[0][0]);
-    assertEquals(null, ((GameImpl)sut).board[1][0]);
-    assertEquals(null, ((GameImpl)sut).board[2][0]);
+    assertNull(sut.board[0][0]);
+    assertNull(sut.board[1][0]);
+    assertNull(sut.board[2][0]);
   }
 }

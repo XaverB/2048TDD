@@ -3,7 +3,7 @@ package spw4.game2048;
 import java.util.Random;
 
 public class GameRandomGeneratorImpl implements GameRandomGenerator {
-  private Random random;
+  private final Random random;
 
   public GameRandomGeneratorImpl() {
     this.random = new Random();
@@ -26,7 +26,7 @@ public class GameRandomGeneratorImpl implements GameRandomGenerator {
 
   /**
    * Generates a random number for tile indexes between 0 and 3
-   * @return int in range 0 - 3
+   * @return int in range 0 to 3
    */
   @Override
   public int generateIndex() {
