@@ -20,6 +20,7 @@ class GameRandomGeneratorTest {
   Random random;
 
   @Test
+  @DisplayName("GameRandomGeneratorTest.generateTile with random.nextInt <= nine return  two ")
   void generateWithOneToNineReturnsTwo() {
     when(random.nextInt(eq(1), eq(11)))
             .thenReturn(1, 2, 3, 4, 5, 6, 7, 8, 9);
@@ -37,6 +38,7 @@ class GameRandomGeneratorTest {
   }
 
   @Test
+  @DisplayName("GameRandomGeneratorTest.generateTile with random.nextInt >= ten return four ")
   void generateWithTenReturnsFour() {
     when(random.nextInt(eq(1), eq(11)))
             .thenReturn(10);
@@ -59,6 +61,7 @@ class GameRandomGeneratorTest {
    * There
    */
   @Test
+  @DisplayName("GameRandomGeneratorTest.generateIndex return zero until three ")
   void generateNewIndexReturnsValidIndex() {
     GameRandomGenerator sut = new GameRandomGeneratorImpl(new Random());
 
